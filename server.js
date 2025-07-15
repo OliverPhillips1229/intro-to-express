@@ -25,7 +25,7 @@ app.use(morgan('dev')); // use morgan middleware for logging requests
 
 
 
-app.get('/express', (req, res) => {
+app.get('/', (req, res) => {
   res.send('<h1>Hello Express! I am here.</h1>');
 });
 
