@@ -1,8 +1,9 @@
 
 const express = require('express');
+const morgan = require('morgan'); // for logging requests
 const app = express();
 
-// hello world route
+
 // req = request, res = response
 // any changes made requires a refresh in the browser
 // http method GET
@@ -14,9 +15,15 @@ const app = express();
 // res.send() sends a response back to the client
 // res.send() can take a string, an object, or an array as an argument
 // we wont be using res.send() to send HTML, we will be using it to send JSON data in the future
-app.get('/home', (req, res) => {
-  res.send('<h1>Hello World! I am here.</h1>');
-});
+
+
+app.use(morgan('dev')); // use morgan middleware for logging requests
+
+
+
+
+
+
 
 app.get('/express', (req, res) => {
   res.send('<h1>Hello Express! I am here.</h1>');
@@ -27,6 +34,29 @@ app.get('/new-page', (req, res) => {
   // Note: Only the first res.send() will take effect, subsequent calls will be ignored.
   res.send('<p>Welcome to the new page!</p>');
 });
+
+// query parameters
+app.get('/home', (req, res) => {
+  const name = req.query.name; // Access query parameter 'name'
+  const age = req.query.age; // Access query parameter 'age'
+
+
+  res.send(`<h1>Hello ${name}! You are ${age} years old.</h1>`);
+  // Example URL: /home?name=John&age=30
+});
+
+// route with a parameters
+app.get('/:itemNumber', (req, res) => {
+  console.log(req.params.itemNumber);
+    // req.params is an object that contains the route parameters
+  res.send(`<h1>Item Number: ${req.params.itemNumber}</h1>`);
+  // Note: This will match any path like /123, /abc, etc. and return the item number.
+});
+
+
+// www.socialmedia.com/usernames/123456789
+// app.get('/usernames/:usernameID')
+
 
 // this is always LAST on the code
 app.listen(3000, () => {
