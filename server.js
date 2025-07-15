@@ -25,6 +25,7 @@ app.get('/express', (req, res) => {
 
 app.get('/new-page', (req, res) => {
   res.send('<h1>This is a new page!</h1>');
+  // Note: Only the first res.send() will take effect, subsequent calls will be ignored.
   res.send('<p>Welcome to the new page!</p>');
 });
 
